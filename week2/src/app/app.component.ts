@@ -9,12 +9,14 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent implements OnInit {
   title = 'week2';
   query: string;
-  artists: object;
+  artists: any = [];
+  currentArtist: any = [];
 
   showArtist(item) {
     console.log(item);
     this.query = item.name;
     item.highlight = !item.highlight;
+    this.currentArtist = item;
   }
 
   constructor(private http: HttpClient) {
@@ -22,7 +24,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<Object>('../assets/data.json').subscribe( data => {
+    this.http.get('../assets/data.json').subscribe( data => {
       this.artists = data;
     })
   }
